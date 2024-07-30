@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Detector</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      /* Custom CSS */
+      .center-content {
+          text-align: center;
+      }
+      /* Custom CSS */
+      .name-heading {
+            margin-top: 20px; /* Adjust as needed */
+            margin-bottom: 20px; /* Adjust as needed */
+            text-align: center;
+            font-weight: bold;
+            color: #333; /* Adjust as needed */
+        }
+        hr {
+            border-top: 2px solid #ccc; /* Adjust as needed */
+        }
+        .img-fluid{
+            height: 500px; width: auto;
+        }
+  </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title center-content">Face Detection</h2>
+                <div class="card-text center-content">
+                    <h3 class="name-heading">Name: {{n}} ID:{{I}} <span id="namePlaceholder"></span></h3>
+                    <hr>
+                    <img class="img-fluid" src="{{url_for('video')}}" id="videoFeed" alt="Live Video Feed" >
+                </div>
+            </div>
+        </div>
+    
+        <div class="card mt-3 center-content">
+            <div class="card-body">
+                <form id="emailForm" action="/send_email" method="post">
+                    <button type="submit" class="btn btn-primary">Send Email and Store Data</button>
+                </form>
+            </div>
+        </div>
+        <div class="card mt-3 center-content">
+            <div class="card-body">
+                <form id="emailForm" action="/store_data" method="post">
+                    <button type="submit" class="btn btn-primary">Storing Data in a File</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+</html>

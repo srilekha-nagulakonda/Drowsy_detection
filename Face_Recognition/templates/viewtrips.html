@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block title %}View Trips{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+{% if request.user.role_type == 3 or user.role_type == 2 %}
+<div class="row">
+    <div class="col">
+        <div class="card card-body shadow-lg">
+            <h4>List of Trips</h4>
+            <table class="table table-borderless text-center">
+                <tr class="bg-dark text-light">
+                    <th>Trip ID</th>
+                    <th>Trip Status</th>
+                    <th>Departure</th>
+                    <th>Destination</th>
+                    <th>Driver</th>
+                    <th>Actions</th>
+                </tr>
+                {% for j in y %}
+                <tr>
+                    <td>{{j.Trip_ID}}</td>
+                    <td>
+                        {% if j.status == '0' %}
+                        <p class="badge badge-warning">Pending</p>
+                        {% elif j.status == '1' %}
+                        <p class="badge badge-danger">Declined</p>
+                        {% elif j.status == '2' %}
+                        <p class="badge badge-info">Accepted</p>
+                        {% else  %}
+                        <p class="badge badge-success">Completed</p>
+                        {% endif %}
+                    </td>
+                    <td>{% if j.Departure == 'H' %}Hyderabad{% elif j.Departure == 'M' %}Mumbai{% elif j.Departure == 'D' %}Delhi{% elif j.Departure == 'K' %}Kolkata{% endif %}</td>
+                    <td>{% if j.Destination == 'H' %}Hyderabad{% elif j.Destination == 'M' %}Mumbai{% elif j.Destination == 'D' %}Delhi{% elif j.Destination == 'K' %}Kolkata{% endif %}</td>
+                    <td>{{j.Drivername}}</td>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <a href="{% url 'edit_trip' j.Trip_ID %}" class="btn btn-info form-control btn-sm">Edit</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% elif request.user.role_type == 1 %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <div class="card card-body shadow-lg">
+                <h4>List of Trips</h4>
+                <table class="table table-borderless text-center">
+                    <tr class="bg-dark text-light">
+                        <th>Trip ID</th>
+                        <th>Departure</th>
+                        <th>Destination</th>
+                        <th>Status</th>
+                    </tr>
+                    {% for j in y %}
+                    {% if j.Drivername == request.user.username %}
+                    <tr>
+                        <td>{{j.Trip_ID}}</td>
+                        <td>{% if j.Departure == 'H' %}Hyderabad{% elif j.Departure == 'M' %}Mumbai{% elif j.Departure == 'D' %}Delhi{% elif j.Departure == 'K' %}Kolkata{% endif %}</td>
+                        <td>{% if j.Destination == 'H' %}Hyderabad{% elif j.Destination == 'M' %}Mumbai{% elif j.Destination == 'D' %}Delhi{% elif j.Destination == 'K' %}Kolkata{% endif %}</td>
+                        <td>{% if j.status == '0' %}Pending{% elif j.status == '1' %}Declined{% elif j.status == '2' %}Accepted{% else %}Completed{% endif %}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% elif request.user.role_type == 0 %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-body shadow-lg">
+                <h4>Register Trips</h4>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for i in x %}
+                    {{i}}
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col">
+                            <input type="reset" value="Clear" class="btn btn-danger form-control">
+                        </div>
+                        <div class="col">
+                            <input type="submit" value="Create" class="form-control btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-body shadow-lg">
+                <h4>List of Trips</h4>
+                <table class="table table-borderless text-center">
+                    <tr class="bg-dark text-light">
+                        <th>Trip ID</th>
+                        <th>Departure</th>
+                        <th>Destination</th>
+                        <th>Status</th>
+                    </tr>
+                    {% for j in y %}
+                    {% if j.Username == request.user.username %}
+                    <tr>
+                        <td>{{j.Trip_ID}}</td>
+                        <td>{% if j.Departure == 'H' %}Hyderabad{% elif j.Departure == 'M' %}Mumbai{% elif j.Departure == 'D' %}Delhi{% elif j.Departure == 'K' %}Kolkata{% endif %}</td>
+                        <td>{% if j.Destination == 'H' %}Hyderabad{% elif j.Destination == 'M' %}Mumbai{% elif j.Destination == 'D' %}Delhi{% elif j.Destination == 'K' %}Kolkata{% endif %}</td>
+                        <td>{% if j.status == 2 %}Accepted{% elif j.status == 1 %}Declined{% else %}Pending{% endif %}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+{% endif %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #aed1ea;">
+    <a class="navbar-brand" href="{% url 'hm' %}">DFD</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            {% if not user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'hm' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/contact/' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/register/' %}active{% endif %}" href="{% url 'register' %}">Register</a>
+                </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'hm' %}">Home</a>
+                    </li>
+                {% if request.user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/adduser/' %}active{% endif %}" href="{% url 'adduser' %}">Role</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/viewtrips/' %}active{% endif %}" href="{% url 'view_trips' %}">View Trips</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link {% if request.path == '/completed/' %}active{% endif %}" href="{% url 'completed' %}">View Submit</a>
+                    </li>
+                {% endif %}
+                {% if request.user.role_type == 0 %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/viewtrips/' %}active{% endif %}" href="{% url 'view_trips' %}">View Trips</a>
+                    </li>
+                {% elif request.user.role_type == 1 %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/viewtrips/' %}active{% endif %}" href="{% url 'view_trips' %}">View Trips</a>
+                    </li>
+                {% elif request.user.role_type == 2 %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == '/viewtrips/' %}active{% endif %}" href="{% url 'view_trips' %}">View Trips</a>
+                    </li>
+                {% else %}
+                {% endif %}
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav ml-auto" style="margin-right: 20px">
+            {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown">Welcome {{request.user.username}}
+                        <img src="{{request.user.upfe.url}}" class="rounded-circle" height="25px" width="25px">
+                    </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item {% if request.path == '/pfe/' %}active{% endif %}" href="{% url 'profile' %}">Profile</a>
+                    <a class="dropdown-item {% if request.path == '/chgepwd/' %}active{% endif %}" href="{% url 'changepwd' %}">ChangePassword</a>
+                    <a class="dropdown-item {% if request.path == 'lgot' %}active{% endif %}" href="{% url 'logout' %}">Logout</a>
+                </div>
+                </div>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/lgo/' %}active{% endif %}" href="{% url 'login' %}">Login</a>
+                </li>
+            {% endif %}
+          </ul>
+    </div>
+</nav>

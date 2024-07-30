@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Sent Successful</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom CSS */
+      .card-body {
+        padding: 1.25rem;
+      }
+      .card-title {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      .card-content {
+        font-size: 1rem;
+        line-height: 1.5;
+        transition: font-weight 0.3s ease; /* Smooth transition */
+      }
+      .card-content:hover {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h1 class="card-title">Ride Terminated</h1>
+            </div>
+          </div>
+          <div class="card mt-3">
+            <div class="card-body">
+              <h1 class="card-title">Last Driver Submit</h1>
+
+              <div class="card-content">
+                <p>
+                  Trip ID:-- {{ last_driver_submit[1] }}<br />
+                  Number of times he felt sleepy:-- {{ last_driver_submit[3]
+                  }}<br />
+                  Number of time he felt yawning:--- {{ last_driver_submit[4] }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

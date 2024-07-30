@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}View Submit{% endblock %}
+{% block content %}
+<div class="jumbotron">
+    {% if user.is_authenticated %}
+    {% if request.user.role_type == 3 or user.role_type == 2 %}
+    <h4>List of Trips</h4>
+    <div class="row">
+        <div class="col">
+            <div class="card card-body shadow-lg">
+                <table class="table table-borderless">
+                    <tr class="bg-dark text-light">
+                        <th>Trip ID</th>
+                        <th>Timestamp</th>
+                        <th>No. of Blinks</th>
+                        <th>No. of Yawns</th>
+                    </tr>
+                    {% for j in k %}
+                    <tr>
+                        <td>{{j.Trip_ID}}</td>
+                        <td>{{j.Timestamp}}</td>
+                        <td>{{j.Blink}}</td>
+                        <td>{{j.Yawn}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    {% elif request.user.role_type == 1 %}
+    Drivers Don't Access To View
+    {% elif request.user.role_type == 0 %}
+    User Don't Access To View
+    {% else %}
+    {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
